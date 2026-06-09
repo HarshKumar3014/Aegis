@@ -1,5 +1,5 @@
-# AutoRedTeam
-<img width="1721" height="914" alt="image" src="https://github.com/user-attachments/assets/13d5111a-bd14-4c49-ac7d-9cae0d56491e" />
+# Aegis
+<img width="1876" height="252" alt="image" src="https://github.com/user-attachments/assets/b0c92aa0-9552-4a07-a0cc-d027dc201706" />
 
 Adversarial testing CLI for language models. Point it at any LLM, run a structured battery of attacks, get a graded report card.
 
@@ -40,23 +40,23 @@ Python 3.11+ required.
 
 ```bash
 # Against local Ollama model
-redteam run llama3
+aegis run llama3
 
 # Against OpenAI
-redteam run gpt-4o --adapter openai
+aegis run gpt-4o --adapter openai
 
 # Against Anthropic
-redteam run claude-3-haiku-20240307 --adapter anthropic
+aegis run claude-3-haiku-20240307 --adapter anthropic
 ```
 
 Output: live Rich terminal UI → saves `report.json` → opens dashboard at `http://127.0.0.1:8080`.
 
 ## Usage
 
-### `redteam run`
+### `aegis run`
 
 ```
-redteam run <model> [OPTIONS]
+aegis run <model> [OPTIONS]
 
 Options:
   --adapter       ollama|huggingface|openai|anthropic|openai-compatible  [default: ollama]
@@ -74,37 +74,37 @@ Options:
 
 ```bash
 # Only critical jailbreaks, faster
-redteam run llama3 --categories jailbreaks --severity critical
+aegis run llama3 --categories jailbreaks --severity critical
 
 # HTML report, no dashboard
-redteam run llama3 --output report.html --no-dashboard
+aegis run llama3 --output report.html --no-dashboard
 
 # Use another model as judge for ambiguous responses
-redteam run llama3 --judge mistral
+aegis run llama3 --judge mistral
 
 # Against vLLM or LM Studio
-redteam run mistral-7b --adapter openai-compatible --base-url http://localhost:8000
+aegis run mistral-7b --adapter openai-compatible --base-url http://localhost:8000
 
 # Against Groq (OpenAI-compatible)
-redteam run llama-3.1-8b-instant --adapter openai-compatible \
+aegis run llama-3.1-8b-instant --adapter openai-compatible \
   --base-url https://api.groq.com/openai
 ```
 
-### `redteam dashboard`
+### `aegis dashboard`
 
 ```bash
 # Load a saved report into the web dashboard
-redteam dashboard report.json
-redteam dashboard report.json --port 9000 --host 0.0.0.0
+aegis dashboard report.json
+aegis dashboard report.json --port 9000 --host 0.0.0.0
 ```
 
-### `redteam list-attacks`
+### `aegis list-attacks`
 
 ```bash
-redteam list-attacks
-redteam list-attacks --category jailbreak
-redteam list-attacks --severity critical
-redteam list-attacks --format json
+aegis list-attacks
+aegis list-attacks --category jailbreak
+aegis list-attacks --severity critical
+aegis list-attacks --format json
 ```
 
 ## Output formats
@@ -154,7 +154,7 @@ With `--judge <model>`, ambiguous responses (score=0.7) are re-evaluated by a se
 
 ## Adding custom attacks
 
-Add entries to any `redteam/attacks/*.yaml` file following the schema:
+Add entries to any `aegis/attacks/*.yaml` file following the schema:
 
 ```yaml
 attacks:
@@ -178,8 +178,8 @@ No code changes needed — `load_attacks()` picks up all YAML files in the attac
 ## Project structure
 
 ```
-llm-redteam/
-├── redteam/
+llm-aegis/
+├── aegis/
 │   ├── __init__.py       # Pydantic models (Attack, AttackResult, ReportCard, ...)
 │   ├── cli.py            # Click CLI commands
 │   ├── adapters.py       # Model adapters (Ollama, OpenAI, Anthropic, HF, OAI-compat)
