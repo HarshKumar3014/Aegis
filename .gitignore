@@ -1,0 +1,11 @@
+.env
+*.json
+*.html
+*.md
+!README.md
+__pycache__/
+*.pyc
+*.egg-info/
+dist/
+build/
+.DS_Store
